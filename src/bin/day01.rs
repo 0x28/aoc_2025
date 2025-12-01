@@ -2,10 +2,12 @@ fn parse(input: &str) -> Vec<i64> {
     input
         .lines()
         .map(|s| {
-            if s.starts_with("L") {
-                -s[1..].parse::<i64>().unwrap()
+            if let Some(num) = s.strip_prefix("L") {
+                -num.parse::<i64>().unwrap()
+            } else if let Some(num) = s.strip_prefix("R") {
+                num.parse().unwrap()
             } else {
-                s[1..].parse::<i64>().unwrap()
+                0
             }
         })
         .collect()
